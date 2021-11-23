@@ -1,6 +1,8 @@
 const express = require('express');
+const cron = require('node-cron');
 const cors = require('cors');
 const dotenv = require('dotenv');
+var dateFormat = require('date-format');
 
 // Leo: mix v_chat
 const helmet = require('helmet'); // helmet morgan body-parser mongoose
@@ -16,6 +18,10 @@ connectDB();
 app.use(cors());
 app.use(express.static(__dirname + '/public'));
 app.use(express.json());
+
+cron.schedule('* * * * * *', function() {
+  console.log('running a task every second', dateFormat('yyyy.MM.dd hh:mm:ss.SSS', new Date()));
+});
 
 // v_chat mix ---------------------------------------
 
@@ -42,7 +48,6 @@ admin.initializeApp({
 });
 
 const auth = require('./routes/auth');
-const user = require('./routes/user');
 const analytics = require('./routes/analytics');
 const prohibitedwords = require('./routes/prohibatedwords');
 const blocklimitedwords = require('./routes/blocklimitedwords');
@@ -51,12 +56,8 @@ const pages = require('./routes/pages');
 
 // v_chat mix
 const userRouter = require('./routes/userRouter');
-const postRouter = require('./routes/postRouter.js');
-const likesRouter = require('./routes/likesRouter');
 const conversionsRouter = require('./routes/conversionsRouter');
 const messageRouter = require('./routes/messagesRouter');
-const commentRouter = require('./routes/commentsRouter');
-const notificationsRouter = require('./routes/notificationsRouter');
 const publicRoomRouter = require('./routes/publicRoomsRouter');
 const publicRoomMessagesRouter = require('./routes/publicRoomMessagesRouter');
 
@@ -72,12 +73,8 @@ app.use('/api/v1/chat', chat);
 
 // v_chat mix
 app.use('/api/v1/user', userRouter);
-app.use('/api/post', postRouter);
 app.use('/api/v1/conversions', conversionsRouter);
-app.use('/api/like', likesRouter);
 app.use('/api/v1/message', messageRouter);
-app.use('/api/comment', commentRouter);
-app.use('/api/notifications', notificationsRouter);
 app.use('/api/v1/rooms', publicRoomRouter);
 app.use('/api/v1/roomMessages', publicRoomMessagesRouter);
 
