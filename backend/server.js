@@ -1,8 +1,7 @@
 const express = require('express');
-const cron = require('node-cron');
 const cors = require('cors');
 const dotenv = require('dotenv');
-var dateFormat = require('date-format');
+const {initCron, stopCron} = require('./soccercron');
 
 // Leo: mix v_chat
 const helmet = require('helmet'); // helmet morgan body-parser mongoose
@@ -19,9 +18,7 @@ app.use(cors());
 app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 
-cron.schedule('* * * * * *', function() {
-  console.log('running a task every second', dateFormat('yyyy.MM.dd hh:mm:ss.SSS', new Date()));
-});
+initCron();
 
 // v_chat mix ---------------------------------------
 
