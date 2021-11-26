@@ -76,7 +76,8 @@ export default function Router() {
         </AuthGuard>
       ),
       children: [
-        { path: '/', element: <Navigate to="/dashboard/app" replace /> },
+        { path: '/', element: <Navigate to="/dashboard/soccer-odds" replace /> },
+        { path: 'soccer-odds', element: <SoccerOddsList /> },
         { path: 'app', element: <GeneralApp /> },
         {
           path: 'analytics',
@@ -197,6 +198,8 @@ const Chat = Loadable(lazy(() => import('../pages/dashboard/Chat')));
 const PrivateChat = Loadable(lazy(() => import('../pages/dashboard/PrivateChat')));
 const Mail = Loadable(lazy(() => import('../pages/dashboard/Mail')));
 const MailList = Loadable(lazy(() => import('../pages/dashboard/MailList')));
+
+const SoccerOddsList = Loadable(lazy(() => import('../pages/dashboard/SoccerOddsList')));
 
 // Main
 const LandingPage = Loadable(lazy(() => import('../pages/LandingPage')));

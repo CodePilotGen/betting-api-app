@@ -1,7 +1,7 @@
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // components
-import Label from '../../components/Label';
+// import Label from '../../components/Label';
 import SvgIconStyle from '../../components/SvgIconStyle';
 
 // ----------------------------------------------------------------------
@@ -36,21 +36,26 @@ const sidebarConfig = [
     subheader: 'general',
     items: [
       {
+        title: 'Soccer Odds',
+        path: PATH_DASHBOARD.general.soccerOdds,
+        icon: ICONS.banking
+      },
+      {
         title: 'app',
         path: PATH_DASHBOARD.general.app,
         icon: ICONS.dashboard
-      },
-      // MANAGEMENT : LEGAL AGREEMENT
-      {
-        title: 'Legal Agreement',
-        path: PATH_DASHBOARD.legalagreement.root,
-        icon: ICONS.legalagreement,
-        children: [
-          { title: 'Privacy Policy', path: PATH_DASHBOARD.legalagreement.privacyPolicy },
-          { title: 'User Agreement', path: PATH_DASHBOARD.legalagreement.userAgreement },
-          { title: 'edit', path: PATH_DASHBOARD.legalagreement.edit }
-        ]
       }
+      // MANAGEMENT : LEGAL AGREEMENT
+      // {
+      //   title: 'Legal Agreement',
+      //   path: PATH_DASHBOARD.legalagreement.root,
+      //   icon: ICONS.legalagreement,
+      //   children: [
+      //     { title: 'Privacy Policy', path: PATH_DASHBOARD.legalagreement.privacyPolicy },
+      //     { title: 'User Agreement', path: PATH_DASHBOARD.legalagreement.userAgreement },
+      //     { title: 'edit', path: PATH_DASHBOARD.legalagreement.edit }
+      //   ]
+      // }
     ]
   },
 
@@ -68,55 +73,55 @@ const sidebarConfig = [
           { title: 'list', path: PATH_DASHBOARD.user.list },
           { title: 'create', path: PATH_DASHBOARD.user.newUser }
         ]
-      },
-      // MANAGEMENT : Word Restrication
-      {
-        title: 'Prohibited Words',
-        path: PATH_DASHBOARD.prohibitedwords.root,
-        icon: ICONS.word,
-        children: [
-          { title: 'List', path: PATH_DASHBOARD.prohibitedwords.list },
-          { title: 'Create new', path: PATH_DASHBOARD.prohibitedwords.new }
-        ]
-      },
-      {
-        title: 'Block Limited Words',
-        path: PATH_DASHBOARD.blocklimitedwords.root,
-        icon: ICONS.blocklimitedword,
-        children: [
-          { title: 'List', path: PATH_DASHBOARD.blocklimitedwords.list },
-          { title: 'Create new', path: PATH_DASHBOARD.blocklimitedwords.new }
-        ]
-      },
-      {
-        title: 'Settings',
-        path: PATH_DASHBOARD.settings.root,
-        icon: ICONS.settings,
-        children: [{ title: 'Parameters', path: PATH_DASHBOARD.settings.parameters }]
       }
+      // MANAGEMENT : Word Restrication
+      // {
+      //   title: 'Prohibited Words',
+      //   path: PATH_DASHBOARD.prohibitedwords.root,
+      //   icon: ICONS.word,
+      //   children: [
+      //     { title: 'List', path: PATH_DASHBOARD.prohibitedwords.list },
+      //     { title: 'Create new', path: PATH_DASHBOARD.prohibitedwords.new }
+      //   ]
+      // },
+      // {
+      //   title: 'Block Limited Words',
+      //   path: PATH_DASHBOARD.blocklimitedwords.root,
+      //   icon: ICONS.blocklimitedword,
+      //   children: [
+      //     { title: 'List', path: PATH_DASHBOARD.blocklimitedwords.list },
+      //     { title: 'Create new', path: PATH_DASHBOARD.blocklimitedwords.new }
+      //   ]
+      // },
+      // {
+      //   title: 'Settings',
+      //   path: PATH_DASHBOARD.settings.root,
+      //   icon: ICONS.settings,
+      //   children: [{ title: 'Parameters', path: PATH_DASHBOARD.settings.parameters }]
+      // }
     ]
-  },
+  }
 
   // APP
   // ----------------------------------------------------------------------
-  {
-    subheader: 'app',
-    items: [
-      {
-        title: 'mail',
-        path: PATH_DASHBOARD.mail.root,
-        icon: ICONS.mail,
-        // info: <Label color="error">2</Label>
-        children: [{ title: 'List', path: PATH_DASHBOARD.mail.list }]
-      },
-      {
-        title: 'chat',
-        path: PATH_DASHBOARD.chat.root,
-        icon: ICONS.chat,
-        children: [{ title: 'Private', path: PATH_DASHBOARD.chat.private }]
-      }
-    ]
-  }
+  // {
+  //   subheader: 'app',
+  //   items: [
+  //     {
+  //       title: 'mail',
+  //       path: PATH_DASHBOARD.mail.root,
+  //       icon: ICONS.mail,
+  //       // info: <Label color="error">2</Label>
+  //       children: [{ title: 'List', path: PATH_DASHBOARD.mail.list }]
+  //     },
+  //     {
+  //       title: 'chat',
+  //       path: PATH_DASHBOARD.chat.root,
+  //       icon: ICONS.chat,
+  //       children: [{ title: 'Private', path: PATH_DASHBOARD.chat.private }]
+  //     }
+  //   ]
+  // }
 ];
 
 export default sidebarConfig;
