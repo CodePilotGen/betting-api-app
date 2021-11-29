@@ -123,7 +123,7 @@ const matchSchema = mongoose.Schema({
     },
     ou_odds_15: {
         type: Object
-    },
+    }
 });
 matchSchema.plugin(uniqueValidator);
 var matchSchemaModel = mongoose.model('matches', matchSchema);
