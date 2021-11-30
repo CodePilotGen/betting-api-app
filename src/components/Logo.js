@@ -17,7 +17,7 @@ export default function Logo({ sx }) {
 
   return (
     <Box sx={{ width: 40, height: 40, ...sx }}>
-      <img src="/static/app_icon.png" alt="logo" />
+      <img src="/static/images.png" alt="logo" />
     </Box>
   );
 }

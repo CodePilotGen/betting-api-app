@@ -22,25 +22,39 @@ export default function SoccerOddsListHead({ order, orderBy, rowCount, headLabel
   return (
     <TableHead>
       <TableRow>
-        {headLabel.map((headCell) => (
+        {headLabel.map((headGroup) => (
           <TableCell
-            key={headCell.id}
-            align={headCell.alignRight ? 'right' : 'left'}
-            sortDirection={orderBy === headCell.id ? order : false}
+            key={headGroup.id}
+            align={headGroup.alignRight ? 'right' : 'center'}
+            colSpan={headGroup.columns.length}
+            // style={{ borderWidth: 1, borderColor: '#cdcdcd', borderStyle: 'solid' }}
           >
-            <TableSortLabel
-              hideSortIcon
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box sx={{ ...visuallyHidden }}>{order === 'desc' ? 'sorted descending' : 'sorted ascending'}</Box>
-              ) : null}
-            </TableSortLabel>
+            {headGroup.label}
           </TableCell>
         ))}
+      </TableRow>
+      <TableRow>
+        {headLabel.map((headGroup) =>
+          headGroup.columns.map((headCell) => (
+            <TableCell
+              key={headCell.id}
+              align={headCell.alignRight ? 'right' : 'left'}
+              sortDirection={orderBy === headCell.id ? order : false}
+            >
+              <TableSortLabel
+                hideSortIcon
+                active={orderBy === headCell.id}
+                direction={orderBy === headCell.id ? order : 'asc'}
+                onClick={createSortHandler(headCell.id)}
+              >
+                {headCell.label}
+                {orderBy === headCell.id ? (
+                  <Box sx={{ ...visuallyHidden }}>{order === 'desc' ? 'sorted descending' : 'sorted ascending'}</Box>
+                ) : null}
+              </TableSortLabel>
+            </TableCell>
+          ))
+        )}
       </TableRow>
     </TableHead>
   );

@@ -30,7 +30,7 @@ const createCronJob = () => {
       const matches = response.data;
       // collect matches
       if (!Array.isArray(matches)) {
-        console.log(`${league.url}: there is no match.`);
+        console.log(`${league.url}: ${response.data}`);
         continue;
       }
       for (let j = 0; j < matches.length; j++) {
@@ -45,14 +45,33 @@ const createCronJob = () => {
           matchData.league_eid = league.eid;
           const matchDataResponse = await sportsAxios.get(item.match.url);
           matchData.data = matchDataResponse.data.match.data;
+          let response = await sportsAxios.get(`${matches[i].url}/ah`);
+          let ahOdds = response.data;
+          let ahLine = Object.keys(oddsData)[0];
+          matchData.ah_line = ahOdds[ahLine].handicapValue;
+          matchData.ah_odds_open = ahOdds[ahLine];
+          response = await sportsAxios.get(`${matches[i].url}/ou`);
+          let ouOdds = response.data;
+          let ouLine = Object.keys(oddsData)[0];
+          matchData.ou_line = ouOdds[ouLine].handicapValue;
+          matchData.ou_odds_open = ouOdds[ouLine];
           console.log(matchData.country, matchData.league, matchData.match);
           const matchSchema = new matchSchemaModel(matchData);
           await matchSchema.save();
+
+          // logs save
+          let ahoddsLog = await oddsLogSchemaModel.findOneAndUpdate({match_id: matches[i]._id}, {ah_odds_open: ahOdds});
+          if (!ahoddsLog) {
+            let newOddsLog = new oddsLogSchemaModel({match_id: matches[i]._id, match_eid: matches[i].eid, ah_odds_open: ahOdds});
+            await newOddsLog.save();
+          }
+          let ouoddsLog = await oddsLogSchemaModel.findOneAndUpdate({match_id: matches[i]._id}, {ou_odds_open: ouOdds});
+          if (!ouoddsLog) {
+            let newOddsLog = new oddsLogSchemaModel({match_id: matches[i]._id, match_eid: matches[i].eid, ou_odds_open: ahOdds});
+            await newOddsLog.save();
+          }
         }
       }
-      // await Promise.all(matches.map( async (item) => {
-        
-      // }));
     }
     // await Promise.all(leagues.map( async (league) => {
       
@@ -76,11 +95,12 @@ const createCronJob = () => {
       console.log(timeDif / 3600000);
       for (let index = 0; index < oddsTimeLine.length; index++) {
         if (timeDif >= oddsTimeLine[index].timeLine) {
-          // console.log(oddsTimeLine[index], matches[i]._id);
+          console.log(oddsTimeLine[index], matches[i]._id);
           if (!matches[i][oddsTimeLine[index].ah_key]) {  // ah odds ** hours before
             let response = await sportsAxios.get(`${matches[i].url}/ah`);
             let oddsData = response.data;
             let mainLine = Object.keys(oddsData)[0];
+            console.log(mainLine);
             let paramObj = new Object();
             paramObj[oddsTimeLine[index].ah_key] = oddsData[mainLine];
             await matchSchemaModel.findByIdAndUpdate(matches[i]._id, paramObj);
@@ -99,6 +119,7 @@ const createCronJob = () => {
             let response = await sportsAxios.get(`${matches[i].url}/ou`);
             let oddsData = response.data;
             let mainLine = Object.keys(oddsData)[0];
+            console.log(mainLine);
             let paramObj = new Object();
             paramObj[oddsTimeLine[index].ou_key] = oddsData[mainLine];
             await matchSchemaModel.findByIdAndUpdate(matches[i]._id, paramObj);
@@ -145,18 +166,23 @@ const createCronJob = () => {
 
 const initCron = async () => {
   
-  // const response = await sportsAxios.get("soccer");
-  // const leagues = response.data;
-  const leagues = [];
-  Promise.all(leagues.map( async (item) => {
-    const eid = item.eid;
-    const league = await leagueSchemaModel.findOne({eid: eid});
-    // console.log(league);
-    if(!league) {
-      const leagueSchema = new leagueSchemaModel(item);
-      await leagueSchema.save();
+  try {
+    const response = await sportsAxios.get("soccer");
+    const leagues = response.data;
+    if (Array.isArray(leagues)) {
+      Promise.all(leagues.map( async (item) => {
+        const eid = item.eid;
+        const league = await leagueSchemaModel.findOne({eid: eid});
+        // console.log(league);
+        if(!league) {
+          const leagueSchema = new leagueSchemaModel(item);
+          await leagueSchema.save();
+        }
+      }));
     }
-  }));
+  } catch(err) {
+    console.log(err);
+  }
   
   createCronJob();
 };

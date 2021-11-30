@@ -10,6 +10,9 @@ const oddsLogSchema = mongoose.Schema({
     match_eid: {
         type: String
     },
+    ah_odds_open: {
+        type: Object
+    },
     ah_odds24h: {
         type: Object
     },
@@ -32,6 +35,9 @@ const oddsLogSchema = mongoose.Schema({
         type: Object
     },
     ah_odds_15: {
+        type: Object
+    },
+    ou_odds_open: {
         type: Object
     },
     ou_odds24h: {

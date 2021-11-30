@@ -13,6 +13,7 @@ import kanbanReducer from './slices/kanban';
 import prohibitedWordReducer from './slices/prohibitedword';
 import blocklimitedwordReducer from './slices/blocklimitedword';
 import settingReducer from './slices/settings';
+import matchOddsReducer from './slices/matchodds';
 
 // ----------------------------------------------------------------------
 
@@ -40,6 +41,7 @@ const rootReducer = combineReducers({
   kanban: kanbanReducer,
   prohibatedword: prohibitedWordReducer,
   setting: settingReducer,
+  matchodds: matchOddsReducer,
   blocklimitedword: blocklimitedwordReducer,
   product: persistReducer(productPersistConfig, productReducer)
 });

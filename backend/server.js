@@ -59,6 +59,7 @@ const publicRoomRouter = require('./routes/publicRoomsRouter');
 const publicRoomMessagesRouter = require('./routes/publicRoomMessagesRouter');
 
 const settingsRouter = require('./routes/settingsRouter');
+const matchesRouter = require('./routes/matchesRouter');
 
 app.use('/api/v1/analytics', analytics);
 app.use('/api/v1/auth', auth);
@@ -76,6 +77,7 @@ app.use('/api/v1/rooms', publicRoomRouter);
 app.use('/api/v1/roomMessages', publicRoomMessagesRouter);
 
 app.use('/api/v1/settings', settingsRouter);
+app.use('/api/v1/matches', matchesRouter);
 
 app.use(errorHandler);
 

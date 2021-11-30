@@ -76,53 +76,86 @@ const matchSchema = mongoose.Schema({
         isStarted: Boolean,
         isFinished: Boolean
     },
+    ah_line: {
+        type: String,
+    },
+    ah_odds_open: {
+        type: Object,
+        default: null
+    },
     ah_odds24h: {
-        type: Object
+        type: Object,
+        default: null
     },
     ah_odds8h: {
-        type: Object
+        type: Object,
+        default: null
     },
     ah_odds4h: {
-        type: Object
+        type: Object,
+        default: null
     },
     ah_odds2h: {
-        type: Object
+        type: Object,
+        default: null
     },
     ah_odds30m: {
-        type: Object
+        type: Object,
+        default: null
     },
     ah_odds_8: {
-        type: Object
+        type: Object,
+        default: null
     },
     ah_odds_12: {
-        type: Object
+        type: Object,
+        default: null
     },
     ah_odds_15: {
-        type: Object
+        type: Object,
+        default: null
+    },
+    ou_line: {
+        type: String,
+    },
+    ou_odds_open: {
+        type: Object,
+        default: null
     },
     ou_odds24h: {
-        type: Object
+        type: Object,
+        default: null
     },
     ou_odds8h: {
-        type: Object
+        type: Object,
+        default: null
     },
     ou_odds4h: {
         type: Object
     },
     ou_odds2h: {
-        type: Object
+        type: Object,
+        default: null
     },
     ou_odds30m: {
-        type: Object
+        type: Object,
+        default: null
     },
     ou_odds_8: {
-        type: Object
+        type: Object,
+        default: null
     },
     ou_odds_12: {
-        type: Object
+        type: Object,
+        default: null
     },
     ou_odds_15: {
-        type: Object
+        type: Object,
+        default: null
+    },
+    createdAt: {
+        type: Number,
+        default: Date.now
     }
 });
 matchSchema.plugin(uniqueValidator);
